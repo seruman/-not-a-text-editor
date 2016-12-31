@@ -9,11 +9,11 @@
 typedef struct line_s line;
 
 struct line_s {
-    gap_T gbuf;     // gap buffer for line
-    line *next;     // next line
-    line *prev;
-    int line_num;
-    int gcursor;
+    gap_T gbuf;     // satır içerisinde tutulan gapbuffer
+    line *next;     // sonraki satır
+    line *prev;     // önceki satır
+    int line_num;   // hangi satır?
+    int gcursor;    // karakter dizisinde neredeyiz?
     int length;
 };
 
@@ -21,15 +21,15 @@ typedef struct {
     int offset;     // column offset
     int cursorX;    // X value for cursor
     int cursorY;    // Y value for cursor
-    int line_num;   // currently selected line
+    int line_num;   // toplam satır sayısı
 } position;
 
 typedef struct {
-    line *head;     // first line in buffer
-    line *selected; // active line
-    line *end;      // last line in buffer
+    line *head;     // bufferdaki ilk satır
+    line *selected; // bufferda aktif olan satır
+    line *end;      // bufferdaki son satır
     position pos;
-    char * filename;
+    char * filename;// dosya ismis
 } buffer;
 
 /*
@@ -44,18 +44,18 @@ void buffer_insert_end(buffer *handle);
 
 void buffer_insert_kth(buffer *handle, int idx);
 
-void buffer_append_empty_line(buffer *);
+void buffer_append_empty_line(buffer *);  // KULLANILMADI
 
-void buffer_insert_empty_line_to(buffer *, int);
+void buffer_insert_empty_line_to(buffer *, int); // KULLANILMADI
 
 void buffer_put(buffer *handle, char c);
 
 void buffer_puts(buffer *, char *);
 
-void buffer_insert_after(buffer *handle, int idx);
+void buffer_insert_after(buffer *handle, int idx); // KULLANILMADI
 
 
-//void buffer_move_cursor(buffer* handle, int, int);
+//void buffer_move_cursor(buffer* handle, int, int); // KULLANILMADI
 
 void buffer_move_cursor_up(buffer *);
 
