@@ -29,10 +29,16 @@ void tui_insert(struct tb_event ev, buffer *buf) {
         if (buf->pos.line_num == 1) {
             buffer_insert_end(buf);
         } else {
-            buffer_insert_kth(buf, buf->selected->line_num + 1);
+            buffer_insert_kth(buf, buf->selected->line_num);
         }
-        buf->pos.cursorY += 1;
-        buf->pos.cursorX = 0;
+        if(buf->selected->line_num == 1 && buf->pos.line_num > 1){
+            //buf->pos.cursorY += 1;
+            buf->pos.cursorX = 0;
+        }else{
+            buf->pos.cursorY += 1;
+            buf->pos.cursorX = 0;
+        }
+
     } else {
         buf->pos.cursorX += 1;
         buffer_put(buf, out);
@@ -88,8 +94,6 @@ void tui_update(buffer *buf) {
                 continue;
             } else {
                 if (gb->buffer[i] != '\0') {
-
-
                     uint32_t out;
                     tb_utf8_char_to_unicode(&out, &gb->buffer[i]);
                     tb_change_cell(x, y, out, TB_WHITE, TB_DEFAULT);
@@ -192,4 +196,6 @@ void tui_save(buffer *buf) {
 
         tmp = tmp->next;
     }
+
+    fclose(output);
 }

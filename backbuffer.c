@@ -71,7 +71,7 @@ void buffer_insert_kth(buffer *handle, int idx) {
 
 
     new_line->line_num = new_line->prev->line_num + 1;
-    handle->pos.line_num = new_line->line_num;
+    handle->pos.line_num +=1; //  new_line->line_num;
 
     tmp = handle->selected->next;
     while (tmp != NULL) {
@@ -432,7 +432,7 @@ void line_move_cursor_left(line *line_handle, int idx) {
         return;
     }
 
-    int res = gap_buffer_distance_to_start(line_handle->gbuf);
+    //int res = gap_buffer_distance_to_start(line_handle->gbuf);
     int old_cursor = line_handle->gbuf->cursor;
 
     gap_buffer_move_cursor(line_handle->gbuf, idx);
@@ -455,7 +455,7 @@ void line_move_cursor_right(line *line_handle, int idx) {
     if (idx < 0) {
         return;
     }
-    int res = gap_buffer_distance_to_start(line_handle->gbuf);
+    //int res = gap_buffer_distance_to_start(line_handle->gbuf);
     int old_cursor = line_handle->gbuf->cursor;
 
     gap_buffer_move_cursor(line_handle->gbuf, idx);
